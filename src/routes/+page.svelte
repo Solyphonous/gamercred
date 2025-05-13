@@ -1,7 +1,10 @@
 <script lang="ts">
+  import { enhance } from "$app/forms";
   import type { PageProps } from "./$types";
 
   let { form }: PageProps = $props();
+
+  let fetching: boolean = $state(false);
 </script>
 
 <h1>Welcome to GAMERCRED&TRADE;</h1>
@@ -9,21 +12,36 @@
 
 <img src="images/gamer cred.jpg" alt="" />
 
-<form method="POST">
+<form
+  method="POST"
+  use:enhance={() => {
+    fetching = true;
+
+    return async ({ update }) => {
+      await update();
+      fetching = false;
+    };
+  }}
+>
   <label for="steamId">
     Enter your Steam Username, ID or URL:
     <br />
     <input
       type="text"
-      name="steamId"
+      name="vanity"
       placeholder="Steam Username, ID or URL"
       required
+      disabled={fetching}
     />
   </label>
 </form>
 
-{#if form?.loginData}
-  <p>Your steam id is {form.loginData.response.steamid}</p>
+{#if fetching}
+  <p>Fetching data from steam servers...</p>
+{/if}
+
+{#if form?.message}
+  <p>{form.message}</p>
 {/if}
 
 <style>
