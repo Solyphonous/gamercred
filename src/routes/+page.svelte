@@ -40,8 +40,12 @@
   <p>Fetching data from steam servers...</p>
 {/if}
 
-{#if form?.message}
+{#if form}
   <p>{form.message}</p>
+
+  {#each form.gamesList || [] as game, index (index)}
+    <p>{game}</p>
+  {/each}
 {/if}
 
 <style>
