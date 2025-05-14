@@ -1,6 +1,7 @@
 import type { RequestEvent } from "../routes/$types";
 import { getSteamId } from "$lib/getSteamId";
 import { getOwnedGames } from "$lib/getOwnedGames";
+
 export const actions = {
   default: async ({ request }: RequestEvent) => {
     try {
@@ -12,10 +13,13 @@ export const actions = {
       const games: Game[] = await getOwnedGames(steamId);
 
       // Todo:
-      // - check if
+      // - check if owned games are in cache, and up to date within 1 day
+      // - fetch achievement stats if false
+      // - fetch user's unlocked achievements per game
+      // - lookup unlocked achievement in table to get gamercred for achievements
+      // - total up gamercred and display to user
 
       const gameNameList: Game[] = [];
-
       games.forEach((game) => {
         gameNameList.push({ name: game.name, appid: game.appid });
       });
