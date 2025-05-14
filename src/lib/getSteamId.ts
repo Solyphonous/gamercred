@@ -22,11 +22,9 @@ export async function getSteamId(event: RequestEvent): Promise<string> {
   const data = await response.json();
 
   if (!(data.response.success === 1)) {
-    throw new Error("Error from Steam while fetching SteamId!");
-  }
-
-  if (data.response.steamid == "") {
-    throw new Error("Invalid argument!");
+    throw new Error(
+      `Error from Steam while fetching SteamId: "${data.response.message}"`,
+    );
   }
 
   const steamId = data.response.steamid;
