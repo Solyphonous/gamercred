@@ -1,11 +1,6 @@
-import type { RequestEvent } from "../routes/$types";
 import { STEAM_API_KEY } from "$env/static/private";
 
-export async function getSteamId(event: RequestEvent): Promise<string> {
-  const { request, fetch } = event;
-  const formData = await request.formData();
-  const vanity: string = String(formData.get("vanity"));
-
+export async function getSteamId(vanity: string): Promise<string> {
   const params = new URLSearchParams({
     key: STEAM_API_KEY,
     vanityurl: vanity,
