@@ -11,10 +11,13 @@ export const actions = {
 
       const games: Game[] = await getOwnedGames(steamId);
 
-      const gameNameList: string[] = [];
+      // Todo:
+      // - check if
+
+      const gameNameList: Game[] = [];
 
       games.forEach((game) => {
-        gameNameList.push(game.name);
+        gameNameList.push({ name: game.name, appid: game.appid });
       });
 
       return {

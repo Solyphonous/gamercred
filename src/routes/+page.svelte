@@ -44,7 +44,11 @@
   <p>{form.message}</p>
 
   {#each form.gamesList || [] as game, index (index)}
-    <p>{game}</p>
+    <p>{game.name}</p>
+    <img
+      src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/{game.appid}/header.jpg"
+      alt="Game thumbnail"
+    />
   {/each}
 {/if}
 
