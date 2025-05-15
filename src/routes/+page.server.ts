@@ -19,10 +19,6 @@ export const actions = {
 
       let playerAchievements: string[] = [];
 
-      //test vars
-      let test_expectedAchievementCount = 0;
-      let test_actualAchievementCount = 0;
-
       for (const ownedGame of ownedGames) {
         let res: QueryResult = await query(
           "SELECT * FROM games WHERE appid=$1;",
@@ -55,20 +51,12 @@ export const actions = {
 
         const achievementsForGame = await getPlayerAchievementsForGame(
           steamId,
-          ownedGame.appid,
+          ownedGame,
         );
 
-        test_expectedAchievementCount += achievementsForGame.length;
-
-        console.log(`... ${ownedGame.name}`);
-
         playerAchievements = playerAchievements.concat(achievementsForGame);
+        console.log(`Finished processing ${ownedGame.name}`);
       }
-
-      test_actualAchievementCount = playerAchievements.length;
-      console.log(
-        `Expected: ${test_expectedAchievementCount} | Actual ${test_actualAchievementCount}`,
-      );
 
       const gamerCred: number = await getGamerCred(playerAchievements);
 

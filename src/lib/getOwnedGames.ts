@@ -16,5 +16,12 @@ export async function getOwnedGames(steamId: number): Promise<ownedGame[]> {
   }
 
   const data = await response.json();
+
+  if (Object.keys(data.response).length == 0) {
+    throw new Error(
+      "No owned games detected. Are your steam profile and game details privacy settings set to public?",
+    );
+  }
+
   return data.response.games;
 }
