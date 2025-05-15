@@ -1,9 +1,9 @@
 import { STEAM_API_KEY } from "$env/static/private";
 
-export async function getOwnedGames(steamId: string) {
+export async function getOwnedGames(steamId: number): Promise<ownedGame[]> {
   const params = new URLSearchParams({
     key: STEAM_API_KEY,
-    steamid: steamId,
+    steamid: steamId.toString(),
     include_appinfo: "true",
     include_played_free_games: "true",
   });

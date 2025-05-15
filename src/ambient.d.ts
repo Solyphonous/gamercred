@@ -1,4 +1,14 @@
-interface Game {
+interface ownedGame {
   name: string;
-  appid: int;
+  appid: number;
+}
+
+interface achievement {
+  name: string;
+  percent: number;
+}
+
+interface playerAchievement {
+  apiname: string;
+  achieved: boolean;
 }
