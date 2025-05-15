@@ -1,0 +1,16 @@
+body {
+  font-family: Rajdhani;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+@font-face {
+  font-family: "Rajdhani";
+  font-style: normal;
+  font-weight: 500;
+  src: url("fonts/Rajdhani/Rajdhani-Medium.ttf") format("truetype");
+}
