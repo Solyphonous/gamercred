@@ -36,11 +36,9 @@ export const actions = {
         const gameInfo = res.rows[0];
 
         const lastUpdatedDate = new Date(gameInfo.last_updated);
-        const oneDayAgo: Date = new Date(
-          new Date().getTime() - 24 * 60 * 60 * 1000,
-        );
+        const updateInterval: Date = new Date(new Date().getTime() - 604800000); // 7 days
 
-        if (lastUpdatedDate < oneDayAgo) {
+        if (lastUpdatedDate < updateInterval) {
           console.warn(`Game data out of date for ${ownedGame.name}, updating`);
           await updateDatabase(ownedGame);
 
