@@ -56,6 +56,7 @@ export const actions = {
         console.log(`Finished processing ${ownedGame.name}`);
       }
 
+      console.log(`Finished processing all ${ownedGames.length} owned games`);
       const gamerCred: number = await getGamerCred(playerAchievements);
 
       return {
