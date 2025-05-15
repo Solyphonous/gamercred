@@ -28,6 +28,7 @@ export const actions = {
           console.warn(`No game data for ${ownedGame.name}`);
           await updateDatabase(ownedGame);
 
+          // Re-get database entry since it should exist now
           res = await query("SELECT * FROM games WHERE appid=$1;", [
             ownedGame.appid.toString(),
           ]);
@@ -41,10 +42,9 @@ export const actions = {
         if (lastUpdatedDate < updateInterval) {
           console.warn(`Game data out of date for ${ownedGame.name}, updating`);
           await updateDatabase(ownedGame);
-
-          res = await query("SELECT * FROM games WHERE appid=$1;", [
-            ownedGame.appid.toString(),
-          ]);
+          // We don't re-get database entry after updating, since the only thing changes in games table is the last_updated value.
+          // However, updateDatabase() also updates the achievements table, which is used in getPlayerAchievementsForGame() below,
+          // so we should still update the database here.
         }
 
         const achievementsForGame = await getPlayerAchievementsForGame(
