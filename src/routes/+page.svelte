@@ -8,7 +8,7 @@
 </script>
 
 <div class="hero">
-  <div class="effects"></div>
+  <div class="blur"></div>
   <div class="pixels"></div>
   <div class="card">
     <form
@@ -62,18 +62,18 @@
     display: flex;
   }
 
-  .effects {
+  .blur {
     position: absolute;
-    backdrop-filter: blur(10px);
     width: 100%;
     height: 100%;
-    opacity: 80%;
+    backdrop-filter: blur(10px);
+    opacity: 60%;
   }
 
   .pixels {
+    position: absolute;
     width: 100%;
     height: 100%;
-    position: absolute;
     background: url("images/white_pixel.png");
     opacity: 10%;
   }
