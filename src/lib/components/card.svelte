@@ -41,8 +41,8 @@
     aspect-ratio: 1.66/1;
 
     background-color: #0c1216;
-    border-radius: 30px;
 
+    border: 1px solid #444444;
     box-shadow: 0px 0px 10px black;
   }
 
