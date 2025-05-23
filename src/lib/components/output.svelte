@@ -2,7 +2,6 @@
   let { outputs } = $props();
 
   let outputHidden: boolean = $state(true);
-
   function toggleVisible() {
     outputHidden = !outputHidden;
   }
@@ -12,7 +11,7 @@
   <div class="output {outputHidden ? 'hidden' : ''}">
     <ul>
       {#each outputs as output, index (index)}
-        <li>{index}: {output}</li>
+        <li>{outputs.length - 1 - index}: {output}</li>
       {/each}
     </ul>
   </div>
@@ -58,9 +57,7 @@
     text-align: left;
     position: relative;
     overflow: auto;
-    transition:
-      max-height 0.2s ease,
-      padding 0.2s;
+    transition: max-height 0.2s ease;
   }
 
   .output.hidden {

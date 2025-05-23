@@ -6,6 +6,8 @@
   let { form }: PageProps = $props();
 
   let fetching: boolean = $state(false);
+
+  let outputs: string[] = $state([]);
 </script>
 
 <div class="hero-background"></div>
@@ -14,7 +16,7 @@
 
 <div class="hero">
   <Card {fetching} />
-  <Output />
+  <Output {outputs} />
 </div>
 
 <!-- Replace below if later - just for temp debugging purposes -->
