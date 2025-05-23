@@ -1,6 +1,5 @@
 html,
 body,
-div,
 span,
 applet,
 object,
@@ -84,8 +83,4 @@ select {
   font-style: normal;
   font-weight: 500;
   src: url("fonts/Rajdhani/Rajdhani-Medium.ttf") format("truetype");
-}
-
-.output-container {
-  font-family: monospace;
 }
