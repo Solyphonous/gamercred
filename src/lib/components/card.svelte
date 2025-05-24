@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { onDestroy } from "svelte";
-
   let { outputs = $bindable([]) } = $props();
 
   let vanity = $state("");
@@ -46,18 +44,6 @@
         case "ping":
           console.log("Server pinged to check if connection is alive");
       }
-    });
-
-    eventSource.addEventListener("finalMessage", (event) => {
-      console.log("Recieved final message");
-      const gamerCred = JSON.parse(event.data).finalMessage;
-      outputs.unshift(gamerCred);
-    });
-
-    eventSource.addEventListener("error", (event) => {
-      console.log(event);
-      const message = JSON.parse(event.data).message;
-      outputs.unshift(message);
     });
   }
 </script>
