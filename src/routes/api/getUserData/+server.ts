@@ -5,6 +5,7 @@ import type { QueryResult } from "pg";
 import { updateDatabase } from "$lib/updateDatabase";
 import { getGamerCred } from "$lib/getGamerCred";
 import { getPlayerAchievementsForGame } from "$lib/getPlayerAchievementsForGame";
+import { getProfileInfo } from "$lib/getProfileInto.js";
 
 async function processRequest(
   vanity: string,
@@ -21,10 +22,12 @@ async function processRequest(
       if (!clientMessage("", "ping")) {
         return;
       }
+
       let res: QueryResult = await query(
         "SELECT * FROM games WHERE appid=$1;",
         [ownedGame.appid.toString()],
       );
+
       if (res.rowCount == 0) {
         console.warn(`No game data for ${ownedGame.name}`);
         await updateDatabase(ownedGame);
@@ -59,9 +62,18 @@ async function processRequest(
     }
 
     clientMessage(`Finished processing all ${ownedGames.length} owned games`);
-    const gamerCred: number = await getGamerCred(playerAchievements);
+    const { gamerCred, achievements } = await getGamerCred(playerAchievements);
 
-    clientMessage(String(gamerCred), "finalMessage");
+    const playerInfo = await getProfileInfo(steamId);
+
+    clientMessage(
+      JSON.stringify({
+        gamerCred: gamerCred,
+        achievements: achievements,
+        playerInfo: playerInfo,
+      }),
+      "finalMessage",
+    );
   } catch (error) {
     console.error(error);
     clientMessage((error as Error).message, "error");
