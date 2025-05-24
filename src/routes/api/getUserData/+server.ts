@@ -72,6 +72,7 @@ export const GET = ({ url }) => {
     start(controller) {
       function clientMessage(message: string, eventType: string = "message") {
         const response = {
+          eventType: eventType,
           message: message,
         };
 

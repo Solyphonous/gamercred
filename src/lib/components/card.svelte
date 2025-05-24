@@ -11,15 +11,29 @@
     const params = new URLSearchParams();
     params.append("vanity", vanity);
 
-    const eventSource = new EventSource("api/getUserData?" + params, {
-      withCredentials: true,
-    });
+    const eventSource = new EventSource("api/getUserData?" + params);
 
     eventSource.addEventListener("message", (event) => {
-      console.log(JSON.parse(event.data));
-      const message = JSON.parse(event.data).message;
-      console.log("Pushing to serverMessages");
-      outputs.unshift(message);
+      const data = JSON.parse(event.data);
+      const message = data.message;
+
+      switch (data.eventType) {
+        case "message":
+          outputs.unshift(message);
+          break;
+
+        case "error":
+          outputs.unshift(message);
+          eventSource.close();
+          fetching = false;
+          break;
+
+        case "finalMessage":
+          eventSource.close();
+          fetching = false;
+          // Full completion code HERE
+          console.log(`GamerCred: ${data.message}`);
+      }
     });
 
     eventSource.addEventListener("finalMessage", (event) => {
