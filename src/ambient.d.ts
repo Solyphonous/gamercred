@@ -3,12 +3,18 @@ interface ownedGame {
   appid: number;
 }
 
-interface achievement {
+interface playerAchievement {
+  apiname: string;
+  achieved: boolean;
+}
+
+interface AchievementPercentage {
   name: string;
   percent: number;
 }
 
-interface playerAchievement {
-  apiname: string;
-  achieved: boolean;
+interface AchievementInfo {
+  name: string;
+  displayName: string;
+  icon: string;
 }
