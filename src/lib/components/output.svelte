@@ -11,7 +11,7 @@
   <div class="output {outputHidden ? 'hidden' : ''}">
     <ul>
       {#each outputs as output, index (index)}
-        <li>{outputs.length - 1 - index}: {output}</li>
+        <li>{outputs.length - index}: {output}</li>
       {/each}
     </ul>
   </div>
