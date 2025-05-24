@@ -1,8 +1,12 @@
 <script lang="ts">
+  import { onDestroy } from "svelte";
+
   let { outputs = $bindable([]) } = $props();
 
   let vanity = $state("");
   let fetching = $state(false);
+
+  let eventSource: EventSource | null = $state(null);
 
   function onSubmit(event: Event) {
     outputs = [];
@@ -11,7 +15,7 @@
     const params = new URLSearchParams();
     params.append("vanity", vanity);
 
-    const eventSource = new EventSource("api/getUserData?" + params);
+    eventSource = new EventSource("api/getUserData?" + params);
 
     eventSource.addEventListener("message", (event) => {
       const data = JSON.parse(event.data);
@@ -23,16 +27,24 @@
           break;
 
         case "error":
+          if (eventSource) {
+            eventSource.close();
+          }
           outputs.unshift(message);
-          eventSource.close();
+
           fetching = false;
           break;
 
         case "finalMessage":
-          eventSource.close();
+          if (eventSource) {
+            eventSource.close();
+          }
           fetching = false;
           // Full completion code HERE
           console.log(`GamerCred: ${data.message}`);
+          break;
+        case "ping":
+          console.log("Server pinged to check if connection is alive");
       }
     });
 

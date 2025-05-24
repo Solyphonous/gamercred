@@ -8,7 +8,7 @@ import { getPlayerAchievementsForGame } from "$lib/getPlayerAchievementsForGame"
 
 async function processRequest(
   vanity: string,
-  clientMessage: (message: string, eventType?: string) => void,
+  clientMessage: (message: string, eventType?: string) => boolean,
 ): Promise<void> {
   try {
     const steamId = await getSteamId(vanity);
@@ -18,6 +18,9 @@ async function processRequest(
     let playerAchievements: string[] = [];
 
     for (const ownedGame of ownedGames) {
+      if (!clientMessage("", "ping")) {
+        return;
+      }
       let res: QueryResult = await query(
         "SELECT * FROM games WHERE appid=$1;",
         [ownedGame.appid.toString()],
@@ -70,20 +73,41 @@ export const GET = ({ url }) => {
 
   const bodyStream = new ReadableStream({
     start(controller) {
-      function clientMessage(message: string, eventType: string = "message") {
-        const response = {
-          eventType: eventType,
-          message: message,
-        };
+      let isConnected = true;
+      function clientMessage(
+        message: string,
+        eventType: string = "message",
+      ): boolean {
+        if (!isConnected) {
+          return false;
+        }
 
-        controller.enqueue(`data: ${JSON.stringify(response)}\n\n`);
+        try {
+          const response = {
+            eventType: eventType,
+            message: message,
+          };
 
-        if (eventType == "finalMessage") {
-          controller.close();
+          controller.enqueue(`data: ${JSON.stringify(response)}\n\n`);
+
+          if (eventType == "finalMessage" || eventType == "error") {
+            controller.close();
+            isConnected = false;
+          }
+
+          return true;
+        } catch {
+          console.error("Stream controller error!");
+          isConnected = false;
+          return false;
         }
       }
 
       processRequest(vanity, clientMessage);
+    },
+
+    cancel() {
+      console.log("Stream closed by client.");
     },
   });
 
