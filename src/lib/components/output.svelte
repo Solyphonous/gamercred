@@ -17,7 +17,7 @@
   </div>
   <button onclick={toggleVisible}>
     <img
-      src="images/arrow.png"
+      src="/images/arrow.png"
       alt=""
       class="arrow {outputHidden ? 'hidden' : ''}"
     />

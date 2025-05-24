@@ -3,7 +3,7 @@ import { POSTGRES_PW } from "$env/static/private";
 
 const pool = new Pool({
   user: "postgres",
-  host: "localhost",
+  host: "gamercred-postgres",
   database: "gamercred",
   password: POSTGRES_PW,
   port: 5432,

@@ -39,7 +39,7 @@
     height: 100vh;
     width: 100vw;
 
-    background: url("images/sample_background.png");
+    background: url("/images/sample_background.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -59,7 +59,7 @@
     top: 0;
     width: 100%;
     height: 100%;
-    background: url("images/white_pixel.png");
+    background: url("/images/white_pixel.png");
     opacity: 10%;
   }
 </style>
