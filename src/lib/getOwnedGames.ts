@@ -12,7 +12,7 @@ export async function getOwnedGames(steamId: number): Promise<ownedGame[]> {
   );
 
   if (!response.ok) {
-    throw new Error("Error fetching owned games!");
+    throw new Error("Error fetching owned games! Please try again.");
   }
 
   const data = await response.json();
