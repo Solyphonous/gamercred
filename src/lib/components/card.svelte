@@ -1,8 +1,21 @@
 <script lang="ts">
+  import { fade } from "svelte/transition";
+  import Profile from "./profile.svelte";
+
   let { outputs = $bindable([]) } = $props();
 
   let vanity = $state("");
   let fetching = $state(false);
+
+  let showDetails = $state(false);
+  let playerInfo = $state({
+    avatarURL: "",
+    displayName: "",
+    profileURL: "",
+  });
+  let achievements = $state();
+
+  let gamerCred = $state(0);
 
   let eventSource: EventSource | null = $state(null);
 
@@ -19,49 +32,57 @@
       const data = JSON.parse(event.data);
       const message = data.message;
 
-      switch (data.eventType) {
-        case "message":
-          outputs.unshift(message);
-          break;
+      if (data.eventType == "message") {
+        outputs.unshift(message);
+      } else if (data.eventType == "error") {
+        if (eventSource) {
+          eventSource.close();
+        }
+        outputs.unshift(message);
 
-        case "error":
-          if (eventSource) {
-            eventSource.close();
-          }
-          outputs.unshift(message);
+        fetching = false;
+      } else if (data.eventType == "finalMessage") {
+        const parsed = JSON.parse(data.message);
 
-          fetching = false;
-          break;
+        if (eventSource) {
+          eventSource.close();
+        }
+        fetching = false;
 
-        case "finalMessage":
-          if (eventSource) {
-            eventSource.close();
-          }
-          fetching = false;
-          // Full completion code HERE
-          console.log(`GamerCred: ${data.message}`);
-          break;
-        case "ping":
-          console.log("Server pinged to check if connection is alive");
+        showDetails = true;
+
+        playerInfo = parsed.playerInfo;
+        gamerCred = parsed.gamerCred;
+        achievements = parsed.achievements;
+      } else if (data.eventType == "ping") {
+        console.log("Server pinged to check if connection is alive");
       }
     });
   }
 </script>
 
 <div class="card">
-  <form onsubmit={onSubmit}>
-    <input
-      type="text"
-      name="vanity"
-      placeholder="Steam Username, ID or URL"
-      required
-      disabled={fetching}
-      bind:value={vanity}
-    />
-  </form>
+  {#if !showDetails}
+    <div transition:fade={{ duration: 300 }}>
+      <form onsubmit={onSubmit}>
+        <input
+          type="text"
+          name="vanity"
+          placeholder="Steam Username, ID or URL"
+          required
+          disabled={fetching}
+          bind:value={vanity}
+        />
+      </form>
 
-  {#if fetching}
-    <p>Fetching data from steam servers...</p>
+      {#if fetching}
+        <p>Fetching data from steam servers...</p>
+      {/if}
+    </div>
+  {:else}
+    <div transition:fade={{ duration: 300 }}>
+      <Profile profile={playerInfo} {gamerCred} {achievements} />
+    </div>
   {/if}
 </div>
 
@@ -71,7 +92,7 @@
     z-index: 999;
     text-align: center;
 
-    padding: 20px;
+    padding: 1.5rem;
     width: 30%;
     aspect-ratio: 1.66/1;
 
@@ -84,6 +105,7 @@
   @media (max-width: 1000px) {
     .card {
       width: 80%;
+      font-size: 0.5rem;
     }
   }
 
@@ -99,7 +121,7 @@
 
   input[type="text"] {
     width: 75%;
-    font-size: 32px;
+    font-size: 2rem;
     box-sizing: border-box;
     background-color: black;
     color: white;

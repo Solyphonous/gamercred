@@ -11,7 +11,7 @@ export async function getProfileInfo(steamId: number) {
   );
 
   if (!response.ok) {
-    throw new Error("Failed to get steam user info.");
+    throw new Error(`Failed to get steam user info.`);
   }
 
   const data = await response.json();

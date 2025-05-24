@@ -18,3 +18,11 @@ interface AchievementInfo {
   displayName: string;
   icon: string;
 }
+
+interface FullAchievement {
+  name: string;
+  displayName: string;
+  icon: string;
+  score: string;
+  percent: string;
+}
