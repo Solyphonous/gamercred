@@ -1,13 +1,11 @@
 <script lang="ts">
   import Card from "$lib/components/card.svelte";
   import Output from "$lib/components/output.svelte";
-  import type { PageProps } from "./$types";
-
-  let { form }: PageProps = $props();
-
-  let fetching: boolean = $state(false);
 
   let outputs: string[] = $state([]);
+  $effect(() => {
+    console.log("Updated outputs");
+  });
 </script>
 
 <div class="hero-background"></div>
@@ -15,22 +13,9 @@
 <div class="pixels"></div>
 
 <div class="hero">
-  <Card {fetching} />
+  <Card bind:outputs />
   <Output {outputs} />
 </div>
-
-<!-- Replace below if later - just for temp debugging purposes -->
-{#if form}
-  <p>{form.message}</p>
-
-  {#each form.gamesList || [] as game, index (index)}
-    <p>{game.name}</p>
-    <img
-      src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/{game.appid}/header.jpg"
-      alt="Game thumbnail"
-    />
-  {/each}
-{/if}
 
 <style>
   .hero {

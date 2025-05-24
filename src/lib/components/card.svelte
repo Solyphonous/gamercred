@@ -1,27 +1,50 @@
 <script lang="ts">
-  import { enhance } from "$app/forms";
+  let { outputs = $bindable([]) } = $props();
 
-  let { fetching } = $props();
+  let vanity = $state("");
+  let fetching = $state(false);
+
+  function onSubmit(event: Event) {
+    outputs = [];
+    fetching = true;
+    event.preventDefault();
+    const params = new URLSearchParams();
+    params.append("vanity", vanity);
+
+    const eventSource = new EventSource("api/getUserData?" + params, {
+      withCredentials: true,
+    });
+
+    eventSource.addEventListener("message", (event) => {
+      console.log(JSON.parse(event.data));
+      const message = JSON.parse(event.data).message;
+      console.log("Pushing to serverMessages");
+      outputs.unshift(message);
+    });
+
+    eventSource.addEventListener("finalMessage", (event) => {
+      console.log("Recieved final message");
+      const gamerCred = JSON.parse(event.data).finalMessage;
+      outputs.unshift(gamerCred);
+    });
+
+    eventSource.addEventListener("error", (event) => {
+      console.log(event);
+      const message = JSON.parse(event.data).message;
+      outputs.unshift(message);
+    });
+  }
 </script>
 
 <div class="card">
-  <form
-    method="POST"
-    use:enhance={() => {
-      fetching = true;
-
-      return async ({ update }) => {
-        await update();
-        fetching = false;
-      };
-    }}
-  >
+  <form onsubmit={onSubmit}>
     <input
       type="text"
       name="vanity"
       placeholder="Steam Username, ID or URL"
       required
       disabled={fetching}
+      bind:value={vanity}
     />
   </form>
 

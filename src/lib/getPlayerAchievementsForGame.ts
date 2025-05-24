@@ -3,6 +3,7 @@ import { STEAM_API_KEY } from "$env/static/private";
 export async function getPlayerAchievementsForGame(
   steamId: number,
   ownedGame: ownedGame,
+  clientMessage: (message: string) => void,
 ): Promise<string[]> {
   const params = new URLSearchParams({
     key: STEAM_API_KEY,
@@ -15,7 +16,7 @@ export async function getPlayerAchievementsForGame(
   );
 
   if (!response.ok) {
-    console.log(`${ownedGame.name} has no achievements.`);
+    clientMessage(`${ownedGame.name} has no achievements.`);
     return [];
   }
 
@@ -31,7 +32,7 @@ export async function getPlayerAchievementsForGame(
     }
   }
 
-  console.log(
+  clientMessage(
     `Got ${unlockedAchievements.length} unlocked achievements for ${ownedGame.name}...`,
   );
 

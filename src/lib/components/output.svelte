@@ -1,7 +1,7 @@
 <script lang="ts">
   let { outputs } = $props();
 
-  let outputHidden: boolean = $state(true);
+  let outputHidden: boolean = $state(false);
   function toggleVisible() {
     outputHidden = !outputHidden;
   }
