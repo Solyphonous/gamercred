@@ -25,6 +25,11 @@
   });
 </script>
 
+<svelte:head>
+  <title>GAMERCRED</title>
+  <link rel="icon" type="image/png" href="/images/favicon.png" />.
+</svelte:head>
+
 <div bind:this={background} class="hero-background"></div>
 <div class="blur"></div>
 <div class="pixels"></div>
