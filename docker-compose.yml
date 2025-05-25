@@ -10,12 +10,14 @@ services:
     image: postgres
     environment:
       POSTGRES_PASSWORD: ${POSTGRES_PW}
+      POSTGRES_DB: gamercred
     ports:
       - "5432:5432"
     networks:
       - gamercred
     volumes:
       - gamercred-postgres:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/
 
 volumes:
   gamercred-postgres:
