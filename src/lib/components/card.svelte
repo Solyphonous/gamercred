@@ -64,6 +64,8 @@
 <div class="card">
   {#if !showDetails}
     <div transition:fade={{ duration: 300 }}>
+      <h1>GAMERCRED</h1>
+      <h3>Get the value of your steam achievements</h3>
       <form onsubmit={onSubmit}>
         <input
           type="text"
@@ -96,9 +98,9 @@
     width: 30%;
     aspect-ratio: 1.66/1;
 
-    background-color: #0c1216;
+    background-color: var(--dark-grey);
+    border: 1px solid var(--border-grey);
 
-    border: 1px solid #444444;
     box-shadow: 0px 0px 10px black;
   }
 
@@ -110,22 +112,22 @@
   }
 
   form {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    position: absolute;
-    width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
+    margin: 12% 0%;
   }
 
   input[type="text"] {
     width: 75%;
     font-size: 2rem;
     box-sizing: border-box;
-    background-color: black;
+    background-color: var(--light-grey);
     color: white;
-    border: 2px solid white;
-    border-radius: 10px;
+    border: 1px solid var(--border-grey);
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px black inset;
+    transition: box-shadow 0.2s ease;
+  }
+
+  input[type="text"]:focus {
+    box-shadow: 2px 2px 5px black inset;
   }
 </style>

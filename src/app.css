@@ -1,3 +1,9 @@
+:root {
+  --dark-grey: #0c1216;
+  --border-grey: #444444;
+  --light-grey: #222229;
+}
+
 html,
 body,
 span,
@@ -61,7 +67,7 @@ caption {
   vertical-align: baseline;
   background: transparent;
   font-family: Rajdhani;
-  color: white;
+  color: whitesmoke;
 }
 
 html,

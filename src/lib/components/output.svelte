@@ -29,7 +29,7 @@
     width: 25%;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    background-color: #222229;
+    background-color: var(--light-grey);
     max-height: 50%;
     overflow: hidden;
 
@@ -47,7 +47,6 @@
 
   button {
     cursor: pointer;
-    background-color: #222229;
     border: none;
   }
 

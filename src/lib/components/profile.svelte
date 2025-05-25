@@ -40,7 +40,7 @@
 <style>
   button {
     cursor: pointer;
-    background-color: black;
+    background-color: var(--light-grey);
     padding: 5px 10px;
     border-radius: 10px;
     font-size: 1.5rem;
