@@ -18,7 +18,7 @@
   onMount(() => {
     let backgroundImage: number = getRandomInt(1, 104);
 
-    background.style.setProperty(
+    background?.style.setProperty(
       "background-image",
       `url(/images/backgrounds/${backgroundImage}.png`,
     );
