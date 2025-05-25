@@ -68,6 +68,7 @@
     text-align: center;
     margin-top: -1em;
   }
+
   .info {
     height: 100vh;
     background-color: var(--dark-grey);
