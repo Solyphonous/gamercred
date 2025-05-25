@@ -17,7 +17,7 @@
     <img src={profile.avatarURL} alt="Profile" />
     <div class="top-text-container">
       <h1>{profile.displayName}</h1>
-      <h2>GAMERCRED: {gamerCred}</h2>
+      <h2>GAMERCRED: {gamerCred}G</h2>
     </div>
   </div>
   <h3>Top Achievements:</h3>
