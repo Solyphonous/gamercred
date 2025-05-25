@@ -1,6 +1,6 @@
 import { STEAM_API_KEY } from "$env/static/private";
 
-export async function getSteamId(vanity: string): Promise<number> {
+export async function getSteamId(vanity: string): Promise<string> {
   const params = new URLSearchParams({
     key: STEAM_API_KEY,
     vanityurl: vanity,
@@ -17,6 +17,16 @@ export async function getSteamId(vanity: string): Promise<number> {
   const data = await response.json();
 
   if (!(data.response.success === 1)) {
+    if (data.response.message == "No match") {
+      try {
+        Number(vanity);
+        return vanity;
+      } catch {
+        throw new Error(
+          `Error from Steam while fetching SteamId: "${data.response.message}"`,
+        );
+      }
+    }
     throw new Error(
       `Error from Steam while fetching SteamId: "${data.response.message}"`,
     );

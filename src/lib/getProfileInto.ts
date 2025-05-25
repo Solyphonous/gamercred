@@ -1,6 +1,6 @@
 import { STEAM_API_KEY } from "$env/static/private";
 
-export async function getProfileInfo(steamId: number) {
+export async function getProfileInfo(steamId: string) {
   const params = new URLSearchParams({
     key: STEAM_API_KEY,
     steamids: steamId.toString(),
