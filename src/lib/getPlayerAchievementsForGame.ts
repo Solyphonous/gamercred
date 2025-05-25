@@ -4,7 +4,7 @@ export async function getPlayerAchievementsForGame(
   steamId: number,
   ownedGame: ownedGame,
   clientMessage: (message: string, eventType?: string) => boolean,
-): Promise<string[]> {
+): Promise<playerAchievement[]> {
   const params = new URLSearchParams({
     key: STEAM_API_KEY,
     steamid: steamId.toString(),
@@ -22,12 +22,15 @@ export async function getPlayerAchievementsForGame(
 
   const data = await response.json();
 
-  const unlockedAchievements: string[] = [];
+  const unlockedAchievements = [];
 
   if (!data.error && data.playerstats.achievements !== undefined) {
     for (const achievement of data.playerstats.achievements) {
       if (achievement.achieved == 1) {
-        unlockedAchievements.push(achievement.apiname);
+        unlockedAchievements.push({
+          apiname: achievement.apiname,
+          appid: String(ownedGame.appid),
+        });
       }
     }
   }

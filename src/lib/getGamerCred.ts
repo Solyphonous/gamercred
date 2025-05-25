@@ -1,27 +1,27 @@
 import type { QueryResult } from "pg";
 import { query } from "./db";
 
-export async function getGamerCred(playerAchievements: string[]) {
+export async function getGamerCred(playerAchievements: playerAchievement[]) {
   let gamerCred: number = 0;
   const achievements = [];
-  for (const achievementName of playerAchievements) {
+  for (const achievement of playerAchievements) {
     const queryResult: QueryResult = await query(
-      `SELECT * FROM achievements WHERE achievement_name=$1`,
-      [achievementName],
+      `SELECT * FROM achievements WHERE achievement_name=$1 AND appid=$2`,
+      [achievement.apiname, achievement.appid],
     );
 
     if (queryResult.rowCount == 0) {
       continue;
     }
 
-    const achievement = queryResult.rows[0];
-    gamerCred += achievement.score;
+    const achievementResult = queryResult.rows[0];
+    gamerCred += achievementResult.score;
 
     achievements.push({
-      name: achievement.display_name,
-      icon: achievement.icon,
-      unlockPercentage: achievement.unlock_percentage,
-      score: achievement.score,
+      name: achievementResult.display_name,
+      icon: achievementResult.icon,
+      unlockPercentage: achievementResult.unlock_percentage,
+      score: achievementResult.score,
     });
   }
 

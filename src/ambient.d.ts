@@ -5,7 +5,7 @@ interface ownedGame {
 
 interface playerAchievement {
   apiname: string;
-  achieved: boolean;
+  appid: string;
 }
 
 interface AchievementPercentage {

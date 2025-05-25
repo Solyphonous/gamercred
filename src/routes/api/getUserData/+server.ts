@@ -13,10 +13,10 @@ async function processRequest(
 ): Promise<void> {
   try {
     const steamId = await getSteamId(vanity);
-
+    const playerInfo = await getProfileInfo(steamId);
     const ownedGames: ownedGame[] = await getOwnedGames(steamId);
 
-    let playerAchievements: string[] = [];
+    let playerAchievements: playerAchievement[] = [];
 
     for (const ownedGame of ownedGames) {
       if (!clientMessage("", "ping")) {
@@ -64,7 +64,9 @@ async function processRequest(
     clientMessage(`Finished processing all ${ownedGames.length} owned games`);
     const { gamerCred, achievements } = await getGamerCred(playerAchievements);
 
-    const playerInfo = await getProfileInfo(steamId);
+    for (const achievement of achievements) {
+      if (achievement.name == "Shadow") console.log(achievement);
+    }
 
     clientMessage(
       JSON.stringify({
