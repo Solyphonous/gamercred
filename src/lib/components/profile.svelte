@@ -82,7 +82,21 @@
 
   img {
     max-width: 100%;
-    height: auto;
+    aspect-ratio: 1/1;
     margin-right: 1.5rem;
+  }
+
+  @media (max-width: 1000px) {
+    img {
+      max-width: 100px;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 1rem;
+    }
   }
 </style>
