@@ -59,7 +59,7 @@ export async function updateDatabase(ownedGame: ownedGame) {
       `
       INSERT INTO achievements (achievement_name, appid, display_name, icon, unlock_percentage)
       VALUES ($1, $2, $3, $4, $5)
-      ON CONFLICT (achievement_name) DO
+      ON CONFLICT (achievement_name, appid) DO
       UPDATE SET unlock_percentage = $5
       `,
       [
