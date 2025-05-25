@@ -70,13 +70,23 @@
   }
 
   .info {
-    height: 100vh;
+    min-height: 100vh;
     background-color: var(--dark-grey);
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
     overflow: auto;
     margin: auto;
+    padding: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .info {
+      flex-direction: column;
+      padding: 40px 20px;
+    }
   }
 
   .hero {
