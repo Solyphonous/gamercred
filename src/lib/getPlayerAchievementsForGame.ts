@@ -12,7 +12,7 @@ export async function getPlayerAchievementsForGame(
   });
 
   const response: Response = await fetch(
-    `http://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?${params.toString()}`,
+    `https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?${params.toString()}`,
   );
 
   if (!response.ok) {
@@ -26,7 +26,7 @@ export async function getPlayerAchievementsForGame(
 
   if (!data.error && data.playerstats.achievements !== undefined) {
     for (const achievement of data.playerstats.achievements) {
-      if (achievement.achieved) {
+      if (achievement.achieved == 1) {
         unlockedAchievements.push(achievement.apiname);
       }
     }

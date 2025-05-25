@@ -14,7 +14,7 @@ export async function updateDatabase(ownedGame: ownedGame) {
 
   // Fetch achievement percentages for game
   const percentagesResponse = await fetch(
-    `http://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=${ownedGame.appid}&format=json`,
+    `https://api.steampowered.com/ISteamUserStats/GetGlobalAchievementPercentagesForApp/v0002/?gameid=${ownedGame.appid}&format=json`,
   );
   if (!percentagesResponse.ok) {
     console.log(`Failed achievement percentage get for ${ownedGame.name}`);

@@ -8,7 +8,7 @@ export async function getOwnedGames(steamId: number): Promise<ownedGame[]> {
     include_played_free_games: "true",
   });
   const response = await fetch(
-    `http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?${params.toString()}`,
+    `https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?${params.toString()}`,
   );
 
   if (!response.ok) {
