@@ -70,7 +70,7 @@
         <input
           type="text"
           name="vanity"
-          placeholder="Steam Username, ID or URL"
+          placeholder="Steam Username or ID"
           required
           disabled={fetching}
           bind:value={vanity}
