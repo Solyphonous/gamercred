@@ -51,8 +51,18 @@
     text="You are welcome. If you wish to thank me, send me BUG REPORTS at solyphonous+gamercred@pm.me. And I will fix it. For you. It's all for you. GAMERCRED. It's for you. That's the tagline."
   />
 </div>
+<p class="footer">
+  Made by <a href="https://soly.jambos.casa" target="_blank">Solyphonous</a>
+</p>
 
 <style>
+  .footer {
+    width: 100%;
+    background-color: black;
+    display: inline-block;
+    text-align: center;
+    margin-top: -1em;
+  }
   .info {
     height: 100vh;
     background-color: var(--dark-grey);
