@@ -1,9 +1,9 @@
 import { Pool, type QueryResult, type QueryResultRow } from "pg";
-import { POSTGRES_PW } from "$env/static/private";
+import { POSTGRES_PW, PROD } from "$env/static/private";
 
 const pool = new Pool({
   user: "postgres",
-  host: "gamercred-postgres",
+  host: PROD == "true" ? "db" : "localhost",
   database: "gamercred",
   password: POSTGRES_PW,
   port: 5432,

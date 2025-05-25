@@ -1,0 +1,26 @@
+services:
+  web:
+    image: gamercred
+    ports:
+      - "3000:3000"
+    networks:
+      - gamercred
+
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PW}
+    ports:
+      - "5432:5432"
+    networks:
+      - gamercred
+    volumes:
+      - gamercred-postgres:/var/lib/postgresql/data
+
+volumes:
+  gamercred-postgres:
+    external: true
+
+networks:
+  gamercred:
+    driver: bridge
