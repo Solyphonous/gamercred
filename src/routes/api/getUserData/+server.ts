@@ -1,11 +1,11 @@
-import { getSteamId } from "$lib/getSteamId";
-import { getOwnedGames } from "$lib/getOwnedGames";
-import { query } from "$lib/db";
+import { getSteamId } from "$lib/server/getSteamId";
+import { getOwnedGames } from "$lib/server/getOwnedGames";
+import { query } from "$lib/server/db";
 import type { QueryResult } from "pg";
-import { updateDatabase } from "$lib/updateDatabase";
-import { getGamerCred } from "$lib/getGamerCred";
-import { getPlayerAchievementsForGame } from "$lib/getPlayerAchievementsForGame";
-import { getProfileInfo } from "$lib/getProfileInto.js";
+import { updateDatabase } from "$lib/server/updateDatabase";
+import { getGamerCred } from "$lib/server/getGamerCred";
+import { getPlayerAchievementsForGame } from "$lib/server/getPlayerAchievementsForGame";
+import { getProfileInfo } from "$lib/server/getProfileInto.js";
 
 async function processRequest(
   vanity: string,
