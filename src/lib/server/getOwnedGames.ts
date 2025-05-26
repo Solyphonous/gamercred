@@ -8,11 +8,13 @@ export async function getOwnedGames(steamId: string): Promise<ownedGame[]> {
     include_played_free_games: "true",
   });
   const response = await fetch(
-    `https://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?${params.toString()}`,
+    `https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?${params.toString()}`,
   );
 
   if (!response.ok) {
-    throw new Error("Error fetching owned games! Please try again.");
+    throw new Error(
+      "Error fetching owned games! Please try again, as sometimes steam fails to return a valid response.",
+    );
   }
 
   const data = await response.json();
