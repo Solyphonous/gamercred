@@ -1,6 +1,10 @@
 services:
   web:
     image: gamercred
+    environment:
+      POSTGRES_PW: ${POSTGRES_PW}
+      STEAM_API_KEY: ${STEAM_API_KEY}
+      PROD: ${PROD}
     ports:
       - "3000:3000"
     networks:
@@ -17,7 +21,7 @@ services:
       - gamercred
     volumes:
       - gamercred-postgres:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
 volumes:
   gamercred-postgres:
