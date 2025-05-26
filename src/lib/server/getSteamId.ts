@@ -1,23 +1,32 @@
 import { env } from "$env/dynamic/private";
 
-export async function getSteamId(vanity: string): Promise<string> {
-  const params = new URLSearchParams({
-    key: env.STEAM_API_KEY,
-    vanityurl: vanity,
-  });
+function removeMatchingStart(str: string, start: string) {
+  if (str.startsWith(start)) {
+    str = str.replace(start, "");
+  }
+  return str;
+}
 
+export async function getSteamId(vanity: string): Promise<string> {
   const profileUrls = [
     "https://steamcommunity.com/id/",
     "https://steamcommunity.com/profiles/",
   ];
 
-  if (
-    !isNaN(+vanity) ||
-    vanity.startsWith(profileUrls[1]) ||
-    vanity.startsWith(profileUrls[2])
-  ) {
+  for (const profileUrl of profileUrls) {
+    vanity = removeMatchingStart(vanity, profileUrl);
+  }
+
+  if (!isNaN(+vanity)) {
     return vanity;
   }
+
+  console.log(vanity);
+
+  const params = new URLSearchParams({
+    key: env.STEAM_API_KEY,
+    vanityurl: vanity,
+  });
 
   const response = await fetch(
     `https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1?${params.toString()}`,
