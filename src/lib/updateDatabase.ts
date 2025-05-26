@@ -21,6 +21,11 @@ export async function updateDatabase(ownedGame: ownedGame) {
     return;
   }
   const percentageData = await percentagesResponse.json();
+
+  if (Object.keys(percentageData).length === 0) {
+    return;
+  }
+
   const achievementPercentages: AchievementPercentage[] =
     percentageData.achievementpercentages.achievements;
 
@@ -37,22 +42,19 @@ export async function updateDatabase(ownedGame: ownedGame) {
   }
   const achievementData = await achievementsResponse.json();
 
-  let achievementInfo: AchievementInfo[];
-
-  if (achievementData.game.availableGameStats.achievements) {
-    achievementInfo = achievementData.game.availableGameStats.achievements;
-  } else {
-    achievementInfo = [];
-  }
+  const achievementInfo: AchievementInfo[] =
+    achievementData.game.availableGameStats.achievements;
 
   const infoMap = new Map<string, AchievementInfo>(
     achievementInfo.map((item) => [item.name, item]),
   );
 
-  const achievements = achievementPercentages.map((percentage) => ({
-    ...percentage,
-    ...infoMap.get(percentage.name),
-  }));
+  const achievements = achievementPercentages.map(
+    (achievementPercentageObject) => ({
+      ...achievementPercentageObject,
+      ...infoMap.get(achievementPercentageObject.name),
+    }),
+  );
 
   for (const achievement of achievements) {
     await query(
@@ -65,8 +67,8 @@ export async function updateDatabase(ownedGame: ownedGame) {
       [
         achievement.name,
         ownedGame.appid.toString(),
-        achievement.displayName.toString(),
-        achievement.icon.toString(),
+        achievement.displayName?.toString() || "!!!NONAME!!!", // Yes this is dumb. No I don't know how else to fix this stupid type error!
+        achievement.icon?.toString() || "/images/favicon.png",
         achievement.percent.toString(),
       ],
     );
