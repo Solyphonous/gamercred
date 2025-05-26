@@ -1,4 +1,4 @@
-import { STEAM_API_KEY } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 import { query } from "./db";
 
 export async function updateDatabase(ownedGame: ownedGame) {
@@ -31,7 +31,7 @@ export async function updateDatabase(ownedGame: ownedGame) {
 
   // Fetch achievement details for game
   const achievementQuery = new URLSearchParams({
-    key: STEAM_API_KEY,
+    key: env.STEAM_API_KEY,
     appid: ownedGame.appid.toString(),
   });
   const achievementsResponse = await fetch(

@@ -1,8 +1,8 @@
-import { STEAM_API_KEY } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 
 export async function getSteamId(vanity: string): Promise<string> {
   const params = new URLSearchParams({
-    key: STEAM_API_KEY,
+    key: env.STEAM_API_KEY,
     vanityurl: vanity,
   });
 

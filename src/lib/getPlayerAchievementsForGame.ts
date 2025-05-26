@@ -1,4 +1,4 @@
-import { STEAM_API_KEY } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 
 export async function getPlayerAchievementsForGame(
   steamId: string,
@@ -6,7 +6,7 @@ export async function getPlayerAchievementsForGame(
   clientMessage: (message: string, eventType?: string) => boolean,
 ): Promise<playerAchievement[]> {
   const params = new URLSearchParams({
-    key: STEAM_API_KEY,
+    key: env.STEAM_API_KEY,
     steamid: steamId.toString(),
     appid: ownedGame.appid.toString(),
   });

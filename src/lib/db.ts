@@ -1,11 +1,11 @@
 import { Pool, type QueryResult, type QueryResultRow } from "pg";
-import { POSTGRES_PW, PROD } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 
 const pool = new Pool({
   user: "postgres",
-  host: PROD == "true" ? "db" : "localhost",
+  host: env.PROD == "true" ? "db" : "localhost",
   database: "gamercred",
-  password: POSTGRES_PW,
+  password: env.POSTGRES_PW,
   port: 5432,
 });
 
