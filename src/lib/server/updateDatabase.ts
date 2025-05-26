@@ -39,8 +39,15 @@ export async function updateDatabase(ownedGame: ownedGame) {
   );
   if (!achievementsResponse.ok) {
     console.log(`Failed achievement info get for ${ownedGame.name}`);
+    return;
   }
   const achievementData = await achievementsResponse.json();
+
+  // Check if the game has achievements data
+  if (!achievementData.game?.availableGameStats?.achievements) {
+    console.log(`No achievement data available for ${ownedGame.name}`);
+    return;
+  }
 
   const achievementInfo: AchievementInfo[] =
     achievementData.game.availableGameStats.achievements;
