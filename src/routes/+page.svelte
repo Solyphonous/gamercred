@@ -93,7 +93,7 @@
     position: relative;
 
     height: 100vh;
-    width: 100vw;
+    width: 100%;
 
     display: flex;
     flex-direction: column;
@@ -107,8 +107,8 @@
   .hero-background {
     position: absolute;
     top: 0;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
 
     background-size: cover;
     background-repeat: no-repeat;
