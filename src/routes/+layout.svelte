@@ -1,11 +1,27 @@
 <script lang="ts">
   import "../app.css";
   import { onMount } from "svelte";
-
+  import { browser } from "$app/environment";
+  import { afterNavigate } from "$app/navigation";
   import InfoCard from "$lib/components/infoCard.svelte";
 
   let { children } = $props();
 
+  // Navbar
+  let currentpath = $state(browser ? window.location.pathname : "/");
+
+  if (browser) {
+    afterNavigate(() => {
+      currentpath = window.location.pathname;
+    });
+  }
+
+  let pages = [
+    { name: "Home", link: "/" },
+    { name: "Leaderboard", link: "/leaderboard" },
+  ];
+
+  // Background
   function getRandomInt(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
@@ -25,6 +41,20 @@
 <div bind:this={background} class="hero-background"></div>
 <div class="blur"></div>
 <div class="pixels"></div>
+
+<div class="header">
+  <ul>
+    {#each pages as page, index (index)}
+      <li>
+        {#if page.link == currentpath}
+          <span>{page.name}</span>
+        {:else}
+          <a href={page.link}>{page.name}</a>
+        {/if}
+      </li>
+    {/each}
+  </ul>
+</div>
 
 <div class="hero">
   {@render children()}
@@ -52,6 +82,38 @@
 </p>
 
 <style>
+  ul {
+    margin: 10px 0;
+    text-align: center;
+    list-style: none;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  li {
+    margin: 0px 10px;
+    text-shadow: 0px 0px 10px black;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  span {
+    text-decoration: underline;
+    user-select: none;
+  }
+
+  .header {
+    position: absolute;
+    top: 0;
+    z-index: 999;
+    font-size: 1.5em;
+    width: 100%;
+  }
+
   .hero {
     position: relative;
 
