@@ -3,7 +3,7 @@ import { query } from "./db";
 
 export async function getLeaderboard(): Promise<LeaderboardTableRow[]> {
   const queryResult: QueryResult = await query(
-    `SELECT * FROM leaderboard ORDER BY gamercred DESC`,
+    `SELECT TOP 500 * FROM leaderboard ORDER BY gamercred DESC`,
   );
 
   if (queryResult.rowCount == 0) {
