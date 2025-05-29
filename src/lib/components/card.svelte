@@ -1,6 +1,7 @@
 <script lang="ts">
   import { fade } from "svelte/transition";
   import Profile from "./profile.svelte";
+  import { beforeNavigate } from "$app/navigation";
 
   let { outputs = $bindable([]) } = $props();
 
@@ -59,6 +60,19 @@
       }
     });
   }
+
+  // Confirmation during processing
+  beforeNavigate(({ cancel }) => {
+    if (fetching) {
+      if (
+        !confirm(
+          "Are you sure you want to leave? Your GAMERCRED is still being processed, and progress will be lost if you leave.",
+        )
+      ) {
+        cancel();
+      }
+    }
+  });
 </script>
 
 <div class="card hero-box">
