@@ -6,6 +6,7 @@ import { updateDatabase } from "$lib/server/updateDatabase";
 import { getGamerCred } from "$lib/server/getGamerCred";
 import { getPlayerAchievementsForGame } from "$lib/server/getPlayerAchievementsForGame";
 import { getProfileInfo } from "$lib/server/getProfileInto.js";
+import { updateLeaderboard } from "$lib/server/updateLeaderboard.js";
 
 async function processRequest(
   vanity: string,
@@ -67,6 +68,13 @@ async function processRequest(
     for (const achievement of achievements) {
       if (achievement.name == "Shadow") console.log(achievement);
     }
+
+    updateLeaderboard({
+      steamid: steamId,
+      displayname: playerInfo.displayName,
+      icon: playerInfo.avatarURL,
+      gamercred: gamerCred,
+    });
 
     clientMessage(
       JSON.stringify({
