@@ -65,6 +65,11 @@
     background-color: var(--dark-grey);
   }
 
+  th,
+  td {
+    padding: 0px 5px;
+  }
+
   table tr:nth-child(even) {
     background-color: var(--light-grey);
   }
