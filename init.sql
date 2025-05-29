@@ -16,3 +16,11 @@ CREATE TABLE IF NOT EXISTS achievements (
     PRIMARY KEY (achievement_name, appid),
     FOREIGN KEY (appid) REFERENCES games(appid) ON DELETE CASCADE
 );
+
+CREATE TABLE IF NOT EXISTS leaderboard (
+    steamid TEXT UNIQUE NOT NULL,
+    displayName TEXT NOT NULL,
+    icon TEXT NOT NULL,
+    gamercred INT NOT NULL,
+    PRIMARY KEY (steamid)
+);

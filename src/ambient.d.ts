@@ -26,3 +26,10 @@ interface FullAchievement {
   score: string;
   percent: string;
 }
+
+interface LeaderboardTableRow {
+  steamid: string;
+  displayname: string;
+  icon: string;
+  gamercred: number;
+}
