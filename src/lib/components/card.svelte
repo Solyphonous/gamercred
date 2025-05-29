@@ -61,7 +61,7 @@
   }
 </script>
 
-<div class="card">
+<div class="card hero-box">
   {#if !showDetails}
     <div transition:fade={{ duration: 300 }}>
       <h1>GAMERCRED</h1>
@@ -91,23 +91,13 @@
 <style>
   .card {
     position: relative;
-    z-index: 999;
-    text-align: center;
-
-    padding: 1.5rem;
-    width: 30%;
     aspect-ratio: 1.66/1;
-
-    background-color: var(--dark-grey);
-    border: 1px solid var(--border-grey);
-
-    box-shadow: 0px 0px 10px black;
   }
 
   @media (max-width: 1000px) {
     .card {
       width: 80%;
-      font-size: 0.5rem;
+      font-size: 0.8rem;
     }
   }
 
@@ -117,7 +107,7 @@
 
   input[type="text"] {
     width: 75%;
-    font-size: 2rem;
+    font-size: 2em;
     box-sizing: border-box;
     background-color: var(--light-grey);
     color: white;

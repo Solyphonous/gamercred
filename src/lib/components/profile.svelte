@@ -43,7 +43,7 @@
     background-color: var(--light-grey);
     padding: 5px 10px;
     border-radius: 10px;
-    font-size: 1.5rem;
+    font-size: 1.5em;
   }
   .achievements {
     overflow: auto;

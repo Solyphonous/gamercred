@@ -30,7 +30,7 @@
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     background-color: var(--light-grey);
-    max-height: 50%;
+    max-height: 40%;
     overflow: hidden;
 
     display: flex;
