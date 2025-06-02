@@ -2,3 +2,4 @@
 .env.production
 dockerfile
 makefile
+static/images
