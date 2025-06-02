@@ -23,8 +23,22 @@
         {#each tableRows as tableRow, index (index)}
           <tr>
             <td>{index + 1}</td>
-            <td><img src={tableRow.icon} alt="Profile icon" /></td>
-            <td>{tableRow.displayname}</td>
+            <td
+              ><a
+                aria-label="User steam profile"
+                href="https://steamcommunity.com/profiles/{tableRow.steamid}"
+                target="_blank"
+                ><img src={tableRow.icon} alt="Profile icon" class="pfp" /></a
+              ></td
+            >
+            <td
+              ><a
+                class="username"
+                aria-label="User steam profile"
+                href="https://steamcommunity.com/profiles/{tableRow.steamid}"
+                target="_blank">{tableRow.displayname}</a
+              ></td
+            >
             <td>{tableRow.gamercred}G</td>
           </tr>
         {/each}
@@ -57,6 +71,19 @@
     text-align: left;
     border-collapse: collapse;
     width: 100%;
+  }
+
+  .username {
+    text-decoration: none;
+  }
+
+  .username:hover {
+    text-decoration: underline;
+  }
+
+  .pfp:hover {
+    outline: 2px solid white;
+    outline-offset: -1px;
   }
 
   thead {
