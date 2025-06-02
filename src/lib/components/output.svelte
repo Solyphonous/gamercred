@@ -15,7 +15,7 @@
       {/each}
     </ul>
   </div>
-  <button onclick={toggleVisible}>
+  <button onclick={toggleVisible} value="Toggle output">
     <img
       src="/images/arrow.png"
       alt=""
