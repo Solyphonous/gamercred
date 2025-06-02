@@ -5,6 +5,8 @@
 
   let { outputs = $bindable([]) } = $props();
 
+  // Todo: send PARSED up the chain so it can be saved between page switches
+
   let vanity = $state("");
   let fetching = $state(false);
 
