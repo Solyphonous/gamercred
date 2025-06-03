@@ -82,7 +82,7 @@
   }
 
   .pfp:hover {
-    outline: 2px solid white;
+    outline: 1px solid white;
     outline-offset: -1px;
   }
 
