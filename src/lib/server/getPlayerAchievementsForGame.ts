@@ -15,12 +15,18 @@ export async function getPlayerAchievementsForGame(
     `https://api.steampowered.com/ISteamUserStats/GetPlayerAchievements/v0001/?${params.toString()}`,
   );
 
+  const data = await response.json();
+
   if (!response.ok) {
+    if (data.playerstats.error == "Profile is not public") {
+      throw new Error(
+        "Your game details are private! Make sure your game details are set to public on your steam profile settings.",
+      );
+    }
+
     clientMessage(`${ownedGame.name} has no achievements.`);
     return [];
   }
-
-  const data = await response.json();
 
   const unlockedAchievements = [];
 
