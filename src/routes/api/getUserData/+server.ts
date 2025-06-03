@@ -19,6 +19,8 @@ async function processRequest(
 
     let playerAchievements: playerAchievement[] = [];
 
+    clientMessage(String(ownedGames.length), "startMessage");
+
     for (const ownedGame of ownedGames) {
       if (!clientMessage("", "ping")) {
         return;
@@ -59,10 +61,8 @@ async function processRequest(
       );
 
       playerAchievements = playerAchievements.concat(achievementsForGame);
-      //clientMessage(`Finished processing ${ownedGame.name}`);
     }
 
-    clientMessage(`Finished processing all ${ownedGames.length} owned games`);
     const { gamerCred, achievements } = await getGamerCred(playerAchievements);
 
     for (const achievement of achievements) {

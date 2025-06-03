@@ -5,7 +5,9 @@
 
   let { outputs = $bindable([]) } = $props();
 
-  // Todo: send PARSED up the chain so it can be saved between page switches
+  // Todo:
+  // - send PARSED up the chain so it can be saved between page switches
+  // - link gamesCount and totalGames vars to progress bar
 
   let vanity = $state("");
   let fetching = $state(false);
@@ -16,9 +18,12 @@
     displayName: "",
     profileURL: "",
   });
-  let achievements = $state();
 
+  let achievements = $state();
   let gamerCred = $state(0);
+
+  let totalGames = $state(0);
+  let gamesCount = $state(0);
 
   let eventSource: EventSource | null = $state(null);
 
@@ -37,10 +42,14 @@
 
       if (data.eventType == "message") {
         outputs.unshift(message);
+        gamesCount++;
+      } else if (data.eventType == "startMessage") {
+        totalGames = Number(message);
       } else if (data.eventType == "error") {
         if (eventSource) {
           eventSource.close();
         }
+
         outputs.unshift(message);
 
         fetching = false;
@@ -95,6 +104,9 @@
 
       {#if fetching}
         <p>Fetching data from steam servers...</p>
+        {#if totalGames > 0}
+          <p>{gamesCount}/{totalGames}</p>
+        {/if}
       {/if}
     </div>
   {:else}
