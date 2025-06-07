@@ -49,7 +49,7 @@
         {#if page.link == currentpath}
           <span>{page.name}</span>
         {:else}
-          <a href={page.link}>{page.name}</a>
+          <a class="header-link" href={page.link}>{page.name}</a>
         {/if}
       </li>
     {/each}
@@ -97,7 +97,7 @@
     text-shadow: 0px 0px 10px black;
   }
 
-  a {
+  .header-link {
     text-decoration: none;
   }
 
