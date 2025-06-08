@@ -45,6 +45,7 @@
         gamesCount++;
       } else if (data.eventType == "startMessage") {
         totalGames = Number(message);
+        gamesCount = 0;
       } else if (data.eventType == "error") {
         if (eventSource) {
           eventSource.close();
