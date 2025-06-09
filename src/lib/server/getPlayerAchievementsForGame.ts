@@ -19,8 +19,10 @@ export async function getPlayerAchievementsForGame(
 
   if (!response.ok) {
     if (data.playerstats.error == "Profile is not public") {
-      throw new Error(
-        "Your game details are private! Make sure your game details are set to public on your steam profile settings.",
+      // TODO: Replace this client message with a proper system to distinguish between REAL private profiles and TOOLS which also cause this error!
+      // This is temporary!!! Replace soon as users can currently wipe someone's gamercred if they private!!!
+      clientMessage(
+        "Your game details may be private! Make sure your game details are set to public on your steam profile settings. If this error does not appear to cause issue, the steam API may be malfunctioning (such as if you have tools in your library).",
       );
     }
 
