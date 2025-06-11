@@ -29,6 +29,7 @@
           class="icon"
           src={achievement.icon}
           alt="Achievement icon"
+          loading="lazy"
         />
         <p>{achievement.score}G</p>
       </div>

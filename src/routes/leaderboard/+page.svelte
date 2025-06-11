@@ -28,7 +28,12 @@
                 aria-label="User steam profile"
                 href="https://steamcommunity.com/profiles/{tableRow.steamid}"
                 target="_blank"
-                ><img src={tableRow.icon} alt="Profile icon" class="pfp" /></a
+                ><img
+                  src={tableRow.icon}
+                  alt="Profile icon"
+                  class="pfp"
+                  loading="lazy"
+                /></a
               ></td
             >
             <td
