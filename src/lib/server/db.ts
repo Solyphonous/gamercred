@@ -1,12 +1,16 @@
 import { Pool, type QueryResult, type QueryResultRow } from "pg";
 import { env } from "$env/dynamic/private";
 
+if (!env.DATABASE_CERTIFICATE || !env.DATABASE_URL) {
+  throw new Error("Database secrets missing!");
+}
+
 const pool = new Pool({
-  user: "postgres",
-  host: env.PROD == "true" ? "db" : "localhost",
-  database: "gamercred",
-  password: env.POSTGRES_PW,
-  port: 5432,
+  connectionString: env.DATABASE_URL,
+  ssl: {
+    ca: Buffer.from(env.DATABASE_CERTIFICATE, "base64").toString(),
+    rejectUnauthorized: true,
+  }
 });
 
 export async function query(
