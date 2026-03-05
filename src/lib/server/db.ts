@@ -1,10 +1,10 @@
 import { Pool, type QueryResult, type QueryResultRow } from "pg";
-import { env } from "$env/dynamic/private";
+import { DATABASE_URL, DATABASE_CERTIFICATE } from "$env/static/private";
 
 const pool = new Pool({
-  connectionString: env.DATABASE_URL,
+  connectionString: DATABASE_URL,
   ssl: {
-    ca: Buffer.from(env.DATABASE_CERTIFICATE, "base64").toString(),
+    ca: Buffer.from(DATABASE_CERTIFICATE, "base64").toString(),
     rejectUnauthorized: true,
   }
 });
