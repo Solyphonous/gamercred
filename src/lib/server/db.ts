@@ -1,6 +1,6 @@
 import { Pool, type QueryResult, type QueryResultRow } from "pg";
 import { env } from "$env/dynamic/private";
-// hello my man
+
 const pool = new Pool({
   user: "postgres",
   host: env.PROD == "true" ? "db" : "localhost",
