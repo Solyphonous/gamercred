@@ -120,7 +120,7 @@
 <style>
   .card {
     position: relative;
-    aspect-ratio: 1.66/1;
+    /*aspect-ratio: 1.66/1;*/
   }
 
   @media (max-width: 1000px) {
