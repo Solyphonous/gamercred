@@ -21,7 +21,6 @@
   "devDependencies": {
     "@eslint/compat": "^1.2.9",
     "@eslint/js": "^9.27.0",
-    "@sveltejs/adapter-cloudflare": "^7.2.8",
     "@sveltejs/kit": "^2.21.1",
     "@sveltejs/vite-plugin-svelte": "^5.0.3",
     "@testing-library/jest-dom": "^6.6.3",
@@ -44,6 +43,7 @@
     "wrangler": "^4.63.0"
   },
   "dependencies": {
+    "@sveltejs/adapter-vercel": "^6.3.3",
     "openid-client": "^6.5.0",
     "pg": "^8.16.0",
     "wrangler": "^4.70.0"
