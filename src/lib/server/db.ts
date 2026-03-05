@@ -2,11 +2,7 @@ import { Pool, type QueryResult, type QueryResultRow } from "pg";
 import { env } from "$env/dynamic/private";
 
 const pool = new Pool({
-  user: "postgres",
-  host: env.PROD == "true" ? "db" : "localhost",
-  database: "gamercred",
-  password: env.POSTGRES_PW,
-  port: 5432,
+  connectionString: env.DATABASE_URL
 });
 
 export async function query(
