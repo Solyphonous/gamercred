@@ -2,7 +2,11 @@ import { Pool, type QueryResult, type QueryResultRow } from "pg";
 import { env } from "$env/dynamic/private";
 
 const pool = new Pool({
-  connectionString: env.DATABASE_URL
+  connectionString: env.DATABASE_URL,
+  ssl: {
+    ca: Buffer.from(env.DATABASE_CERTIFICATE, "base64").toString(),
+    rejectUnauthorized: true,
+  }
 });
 
 export async function query(
